@@ -9,6 +9,9 @@ using ExamApp.Models;
 using Data;
 using System.Net.Http;
 using HtmlAgilityPack;
+using System.Net;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExamApp.Controllers
 {
@@ -16,32 +19,53 @@ namespace ExamApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DataContext _context;
-
+        private HashSet<string> hSet = new HashSet<string>();
+        
+        
+        
         public HomeController(ILogger<HomeController> logger, DataContext context)
         {
             _logger = logger;
             _context = context;
         }
 
-        public async Task<IActionResult> IndexAsync()
-        {
-            HttpClient client = new HttpClient();
-            string title;
-            // get answer in non-blocking way
-            using (var response = await client.GetAsync("https://www.wired.com/story/these-adorable-fish-robots-form-schools-like-the-real-thing/"))
+        public IActionResult RetrieveData(){
+            try
             {
-                using (var content = response.Content)
+                // download the html source
+                var webClient = new WebClient();
+                var source = webClient.DownloadString(@"https://www.wired.com/");
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(source);
+
+                foreach (HtmlNode link in doc.DocumentNode.SelectNodes("/html/body/div[3]/div/div[3]/div/div/div[2]/div[1]/div/div[1]//a[@href]"))
                 {
-                    // read answer in non-blocking way
-                    var result = await content.ReadAsStringAsync();
-                    var document = new HtmlDocument();
-                    document.LoadHtml(result);
-                    var node = document.DocumentNode.SelectSingleNode("//*[@id='main-content']/article/div[1]/header/div/div[1]/h1");
-                     title=node.InnerText;
-                    //Some work with page....
+                    if (link != null)
+                    {
+                        // take the value of the attribute
+
+                        var href = link.GetAttributeValue("href", "");
+                        if (href.StartsWith("/story"))
+                        {
+                            hSet.Add(href);
+                            Console.WriteLine(href);
+                        }
+
+                    }
                 }
+                TitleAndContent(hSet);
+
             }
-            return View(title);
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            return RedirectToAction("Index");
+        }
+        public IActionResult Index()
+        {
+            
+            return View();
         }
 
         public IActionResult Privacy()
@@ -54,5 +78,39 @@ namespace ExamApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public void TitleAndContent(HashSet<string> link)
+        {
+            
+            string innerText = "";
+            foreach (var item in link)
+            {
+                var webClient = new WebClient();
+                var source = webClient.DownloadString(@"https://www.wired.com" + item);
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(source);
+                var titleNode = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div/main/article/div[1]/header/div/div[1]/h1");
+                var innerTitle=titleNode.InnerText;
+                if(_context.Exams.Any(p=> p.Title.Equals(innerTitle))) continue;
+                
+                foreach (HtmlNode text in doc.DocumentNode.SelectNodes("/html/body/div[1]/div/main/article/div[2]//p/text()"))
+                {
+                    innerText = innerText + text.InnerText;
+                }
+                var exam =new Exam{
+                Content=innerText,
+                Title = innerTitle
+                 };
+                _context.Exams.Add(exam);
+                _context.SaveChanges();
+                innerText = "";
+            }
+
+
+        }
+
+      
+     
+        
+
     }
 }

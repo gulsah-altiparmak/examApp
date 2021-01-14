@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,9 +26,9 @@ namespace ExamApp
                 
                 {
                     var context = services.GetRequiredService<DataContext>();
-                    //var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                    //var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
                     context.Database.Migrate();
-                    //Seed.SeedData(context, userManager).Wait();
+                   // Seed.SeedData(context, userManager).Wait();
                 }
                 catch (Exception ex)
                 {

@@ -65,3 +65,5 @@
 /Users/gulsahaltiparmak/Exam/ExamApp/bin/Debug/netcoreapp3.1/runtimes/win-x86/native/e_sqlite3.dll
 /Users/gulsahaltiparmak/Exam/ExamApp/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Design.dll
 /Users/gulsahaltiparmak/Exam/ExamApp/bin/Debug/netcoreapp3.1/HtmlAgilityPack.NetCore.dll
+/Users/gulsahaltiparmak/Exam/ExamApp/obj/Debug/netcoreapp3.1/Razor/Views/Account/Login.cshtml.g.cs
+/Users/gulsahaltiparmak/Exam/ExamApp/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

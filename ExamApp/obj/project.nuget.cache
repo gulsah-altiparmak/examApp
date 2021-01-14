@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "c4dVSAnbxClZhU0nxgWZ0av+jjMTJFU/nx5haPlZJXZcLOCZiFLDVqumbyIqnQrtw0DmccbBgr5qrauJTNS/+g==",
+  "dgSpecHash": "G7zXiHOODYrAoLXbqiceGCeDZRvPm8UVnz+14ogsXoLjVJVuTHcevR3N2LSUr25rXj/XK2izqM3m0IS77KX2Zg==",
   "success": true,
   "projectFilePath": "/Users/gulsahaltiparmak/Exam/ExamApp/ExamApp.csproj",
   "expectedPackageFiles": [
     "/Users/gulsahaltiparmak/.nuget/packages/htmlagilitypack.netcore/1.5.0.1/htmlagilitypack.netcore.1.5.0.1.nupkg.sha512",
+    "/Users/gulsahaltiparmak/.nuget/packages/microsoft.aspnetcore.cryptography.internal/3.1.0/microsoft.aspnetcore.cryptography.internal.3.1.0.nupkg.sha512",
+    "/Users/gulsahaltiparmak/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/3.1.0/microsoft.aspnetcore.cryptography.keyderivation.3.1.0.nupkg.sha512",
+    "/Users/gulsahaltiparmak/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/3.1.0/microsoft.aspnetcore.identity.entityframeworkcore.3.1.0.nupkg.sha512",
     "/Users/gulsahaltiparmak/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.0/microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "/Users/gulsahaltiparmak/.nuget/packages/microsoft.bcl.hashcode/1.1.0/microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "/Users/gulsahaltiparmak/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
@@ -25,6 +28,8 @@
     "/Users/gulsahaltiparmak/.nuget/packages/microsoft.extensions.dependencyinjection/3.1.0/microsoft.extensions.dependencyinjection.3.1.0.nupkg.sha512",
     "/Users/gulsahaltiparmak/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/3.1.0/microsoft.extensions.dependencyinjection.abstractions.3.1.0.nupkg.sha512",
     "/Users/gulsahaltiparmak/.nuget/packages/microsoft.extensions.dependencymodel/3.1.0/microsoft.extensions.dependencymodel.3.1.0.nupkg.sha512",
+    "/Users/gulsahaltiparmak/.nuget/packages/microsoft.extensions.identity.core/3.1.0/microsoft.extensions.identity.core.3.1.0.nupkg.sha512",
+    "/Users/gulsahaltiparmak/.nuget/packages/microsoft.extensions.identity.stores/3.1.0/microsoft.extensions.identity.stores.3.1.0.nupkg.sha512",
     "/Users/gulsahaltiparmak/.nuget/packages/microsoft.extensions.logging/3.1.0/microsoft.extensions.logging.3.1.0.nupkg.sha512",
     "/Users/gulsahaltiparmak/.nuget/packages/microsoft.extensions.logging.abstractions/3.1.0/microsoft.extensions.logging.abstractions.3.1.0.nupkg.sha512",
     "/Users/gulsahaltiparmak/.nuget/packages/microsoft.extensions.options/3.1.0/microsoft.extensions.options.3.1.0.nupkg.sha512",
