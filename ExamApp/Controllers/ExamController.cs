@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace ExamApp.Controllers
 {
+    [Authorize]
     public class ExamController:Controller
     {
         private readonly ILogger<ExamController> _logger;
@@ -22,10 +24,16 @@ namespace ExamApp.Controllers
             return View();
         }
 
+
+         public IActionResult ExamList()
+        {
+            var list = GetExams();
+            return View(list);
+        }
           public List<Exam> GetExams()
         {
 
-            var list = _context.Exams.ToList();
+            var list = _context.Exams.Where(p => p.IsDeleted == false).ToList();
 
             return list;
         }
@@ -34,8 +42,12 @@ namespace ExamApp.Controllers
             var deletedExam = _context.Exams.FirstOrDefault(x => x.Id == examId);
             deletedExam.IsDeleted = true;
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ExamList");
         }
+       public IActionResult Edit(int examId){
+            var editedExam = _context.Exams.FirstOrDefault(x => x.Id == examId);
+            return View(editedExam);
+       }
 
     }
 }

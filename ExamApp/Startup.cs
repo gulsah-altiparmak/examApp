@@ -31,6 +31,11 @@ namespace ExamApp
             services.AddDbContext<DataContext>(opt =>{
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = "/Account/Login/";
+        });
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DataContext>();
             //var builder = services.AddIdentityCore<IdentityUser>();
             //var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
@@ -41,17 +46,18 @@ namespace ExamApp
         {
             options.AccessDeniedPath = "/Account/AccessDenied";
             options.Cookie.Name = "MyApplication_Auth";
-            options.Cookie.HttpOnly = true;
+            options.Cookie.HttpOnly = false;
             options.ExpireTimeSpan = TimeSpan.FromDays(7);
             options.LoginPath = "/Account/Login";
-            options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+            //options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             options.SlidingExpiration = true;
         });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {   
+            app.UseAuthentication();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,7 +68,7 @@ namespace ExamApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseAuthentication();
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

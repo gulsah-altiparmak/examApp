@@ -12,17 +12,23 @@ using HtmlAgilityPack;
 using System.Net;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExamApp.Controllers
 {
+   [Authorize]
     public class HomeController : Controller
-    {
+    {   
+        
         private readonly ILogger<HomeController> _logger;
         private readonly DataContext _context;
         private HashSet<string> hSet = new HashSet<string>();
         
         
         
+    
         public HomeController(ILogger<HomeController> logger, DataContext context)
         {
             _logger = logger;
@@ -64,9 +70,60 @@ namespace ExamApp.Controllers
         }
         public IActionResult Index()
         {
-            
-            return View();
+
+            var examList = _context.Exams.Where(p => !p.IsDeleted).ToList();
+
+            ExamViewModel examViewModel = new ExamViewModel();
+            examViewModel.Exams= new SelectList(examList,"Id","Title");
+            return View(examViewModel);
         }
+        [HttpPost]
+        public IActionResult Index(ExamViewModel model)
+        {  var exam = _context.Exams.FirstOrDefault(p => p.Id == model.ExamId);
+        if(exam.ExamQuestions==null)exam.ExamQuestions=new List<ExamQuestion>();
+        
+            var optionList = new List<QuestionOption>();
+            var questions= new List<QuestionViewModel>{
+            model.FirstQuestion,
+            model.SecondQuestion,
+            model.ThirdQuestion,
+            model.FourthQuestion
+        };
+            foreach (var item in questions)
+            {
+               var  questionOptions = new List<QuestionOption>{
+               new QuestionOption{
+                   Title=item.FirstOption,
+                   OptionsOrder=OptionsOrder.A
+               },
+                 new QuestionOption{
+                   Title=item.SecondOption,
+                   OptionsOrder=OptionsOrder.B
+               },
+                 new QuestionOption{
+                   Title=item.ThirdOption,
+                   OptionsOrder=OptionsOrder.C
+               },
+                 new QuestionOption{
+                   Title=item.FourthOption,
+                   OptionsOrder=OptionsOrder.D
+               }
+           };
+                exam.ExamQuestions.Add(new ExamQuestion{
+                Title = item.Title,
+                Answer = item.AnswerId,
+                QuestionOption = questionOptions
+            });
+            }
+            exam.CreatedData = DateTime.Now;
+            _context.SaveChanges();
+            
+            return RedirectToAction("ExamList","Exam");
+        }
+        public JsonResult GetExam(int examId){
+           var exam = _context.Exams.FirstOrDefault(p => p.Id == examId);
+           return Json(exam);
+        } 
 
         public IActionResult Privacy()
         {

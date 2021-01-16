@@ -1,0 +1,45 @@
+@model QuestionViewModel
+
+ <div class="form-group">
+<label class="control-label col-md-3">Question</label>
+<div class="col-md-9">
+
+@Html.TextBoxFor(m => m.Title, new { @class = "form-control ", autofocus = true }) 
+</div>
+</div>
+
+ <div class="form-group">
+ <label class="control-label col-md-3">A</label>
+ <div class="col-md-9">
+@Html.TextBoxFor(m => m.FirstOption, new { @class = "form-control ", autofocus = true }) 
+</div>
+</div>
+
+ <div class="form-group">
+<label class="control-label col-md-3">B</label>
+ <div class="col-md-9">
+@Html.TextBoxFor(m => m.SecondOption, new { @class = "form-control "}) 
+</div>
+</div>
+
+   <div class="form-group">
+ <label class="control-label col-md-3">C</label>
+ <div class="col-md-9">
+@Html.TextBoxFor(m => m.ThirdOption, new { @class = "form-control "}) 
+</div>
+</div>
+
+<div class="form-group">
+ <label class="control-label col-md-3">D</label>
+ <div class="col-md-9">
+@Html.TextBoxFor(m => m.FourthOption, new { @class = "form-control "}) 
+</div>
+</div>
+
+ <div class="form-group">
+<label class="control-label col-md-3">Answer</label>
+  <div class="col-md-9">
+  @Html.DropDownListFor(m => m.AnswerId, Model.Answers, "Select", new {@class = "form-control"}) 
+
+ </div>
+ </div>

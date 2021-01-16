@@ -67,3 +67,6 @@
 /Users/gulsahaltiparmak/Exam/ExamApp/bin/Debug/netcoreapp3.1/HtmlAgilityPack.NetCore.dll
 /Users/gulsahaltiparmak/Exam/ExamApp/obj/Debug/netcoreapp3.1/Razor/Views/Account/Login.cshtml.g.cs
 /Users/gulsahaltiparmak/Exam/ExamApp/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/gulsahaltiparmak/Exam/ExamApp/obj/Debug/netcoreapp3.1/Razor/Views/Exam/ExamList.cshtml.g.cs
+/Users/gulsahaltiparmak/Exam/ExamApp/obj/Debug/netcoreapp3.1/Razor/Views/Exam/Edit.cshtml.g.cs
+/Users/gulsahaltiparmak/Exam/ExamApp/obj/Debug/netcoreapp3.1/Razor/Views/Shared/EditorTemplates/QuestionViewModel.cshtml.g.cs

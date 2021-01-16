@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 namespace Domain.Entities
 {
@@ -10,6 +11,8 @@ namespace Domain.Entities
         public string Content { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public DateTime CreatedData { get; set; }
 
         public virtual ICollection<ExamQuestion> ExamQuestions { get; set; }
 
